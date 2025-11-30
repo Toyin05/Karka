@@ -5,8 +5,11 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.3+-blue)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-5.0+-purple)](https://vitejs.dev)
 [![Supabase](https://img.shields.io/badge/Supabase-Ready-green)](https://supabase.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black)](https://karka.vercel.app/)
 
 **KARKA** is an AI-powered digital identity protection platform that actively monitors your digital likeness across the internet, automatically detecting deepfakes, impersonation, and unauthorized content reposts with blockchain-verified identity protection.
+
+🚀 **[Try the Live Demo](https://karka.vercel.app/)**
 
 ## Overview
 
@@ -123,7 +126,7 @@ KARKA provides creators, public figures, and individuals with comprehensive prot
    ```
 
 5. **Access the application**
-   Navigate to `http://localhost:5173`
+   Navigate to `http://localhost:5173` or visit the [live demo](https://karka.vercel.app/)
 
 ### Production Deployment
 
