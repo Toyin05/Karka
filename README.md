@@ -232,21 +232,6 @@ npm run test:integration
 npm run test:e2e
 ```
 
-## Performance
-
-- **Page Load Time**: < 2 seconds
-- **Time to Interactive**: < 3 seconds
-- **Lighthouse Score**: 95+
-- **Bundle Size**: Optimized for fast loading
-
-## Deployment
-
-### Supported Platforms
-- **Vercel** (Recommended)
-- **Netlify**
-- **AWS Amplify**
-- **Traditional Web Hosting**
-
 ### Docker Support
 ```bash
 docker build -t karka .
@@ -254,8 +239,6 @@ docker run -p 3000:3000 karka
 ```
 
 ## Contributing
-
-We welcome contributions to improve KARKA's digital identity protection capabilities.
 
 ### Contribution Guidelines
 1. Fork the repository
@@ -285,7 +268,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### December 2025 - Q1 2026 (Current Phase)
 - Enhanced ML model accuracy and training data expansion
-- Additional platform integrations (Reddit, Facebook)
 - Mobile application development (iOS and Android)
 - API for third-party integrations and webhooks
 - Enterprise dashboard and analytics features
