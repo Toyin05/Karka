@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Base colors - Deep slate foundation with cyan accent */
+    --background: 216 28% 97%;
+    --foreground: 216 28% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 216 28% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 28% 12%;
+
+    /* Primary - Deep slate for trust */
+    --primary: 216 28% 18%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Secondary - Cyan accent for tech feel */
+    --secondary: 189 94% 43%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 216 20% 92%;
+    --muted-foreground: 216 12% 45%;
+
+    --accent: 189 94% 43%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Status colors for confidence scoring */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 216 20% 88%;
+    --input: 216 20% 88%;
+    --ring: 189 94% 43%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(216 28% 18%), hsl(216 28% 25%));
+    --gradient-accent: linear-gradient(135deg, hsl(189 94% 43%), hsl(189 94% 53%));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(216 28% 12% / 0.1);
+    --shadow-medium: 0 8px 16px -4px hsl(216 28% 12% / 0.12);
+    --shadow-strong: 0 16px 32px -8px hsl(216 28% 12% / 0.16);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 216 28% 8%;
+    --foreground: 216 12% 92%;
+
+    --card: 216 28% 12%;
+    --card-foreground: 216 12% 92%;
+
+    --popover: 216 28% 12%;
+    --popover-foreground: 216 12% 92%;
+
+    --primary: 216 12% 92%;
+    --primary-foreground: 216 28% 12%;
+
+    --secondary: 189 94% 43%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 216 20% 16%;
+    --muted-foreground: 216 12% 55%;
+
+    --accent: 189 94% 43%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 216 20% 20%;
+    --input: 216 20% 20%;
+    --ring: 189 94% 43%;
+    
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 8px 16px -4px hsl(0 0% 0% / 0.4);
+    --shadow-strong: 0 16px 32px -8px hsl(0 0% 0% / 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

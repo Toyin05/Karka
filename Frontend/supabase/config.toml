@@ -1,0 +1,10 @@
+project_id = "cinrzoppbgcaisvhtzpo"
+
+[functions]
+enabled = true
+
+[functions.ml-compare]
+verify_jwt = false
+
+[functions.crawler-status]
+verify_jwt = false
