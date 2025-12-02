@@ -73,12 +73,13 @@ const Onboarding = () => {
     }
 
     const { data: identity } = await supabase
-      .from("identities")
+      .from("user_identities")
       .select("*")
       .eq("user_id", user.id)
       .maybeSingle();
 
-    if (identity?.onboarding_completed) {
+    // Check if identity already exists (for users who completed onboarding)
+    if (identity) {
       navigate("/dashboard");
     }
   };
@@ -186,7 +187,7 @@ const Onboarding = () => {
 
       // Save identity to database
       const { error } = await supabase
-        .from("identities")
+        .from("user_identities")
         .upsert({
           user_id: user.id,
           identity_hash: identityHash,

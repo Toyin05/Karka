@@ -271,6 +271,327 @@ export type Database = {
           },
         ]
       }
+      user_profiles: {
+        Row: {
+          id: string
+          email: string | null
+          full_name: string | null
+          display_name: string | null
+          bio: string | null
+          avatar_url: string | null
+          verified: boolean | null
+          subscription_tier: Database["public"]["Enums"]["subscription_tier"] | null
+          joined_date: string | null
+          last_login: string | null
+          security_score: number | null
+          profile_completion: number | null
+          phone: string | null
+          location: string | null
+          website: string | null
+          date_of_birth: string | null
+          onboarding_completed: boolean | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id: string
+          email?: string | null
+          full_name?: string | null
+          display_name?: string | null
+          bio?: string | null
+          avatar_url?: string | null
+          verified?: boolean | null
+          subscription_tier?: Database["public"]["Enums"]["subscription_tier"] | null
+          joined_date?: string | null
+          last_login?: string | null
+          security_score?: number | null
+          profile_completion?: number | null
+          phone?: string | null
+          location?: string | null
+          website?: string | null
+          date_of_birth?: string | null
+          onboarding_completed?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          email?: string | null
+          full_name?: string | null
+          display_name?: string | null
+          bio?: string | null
+          avatar_url?: string | null
+          verified?: boolean | null
+          subscription_tier?: Database["public"]["Enums"]["subscription_tier"] | null
+          joined_date?: string | null
+          last_login?: string | null
+          security_score?: number | null
+          profile_completion?: number | null
+          phone?: string | null
+          location?: string | null
+          website?: string | null
+          date_of_birth?: string | null
+          onboarding_completed?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_identities: {
+        Row: {
+          id: string
+          user_id: string | null
+          identity_hash: string | null
+          camp_tx_hash: string | null
+          camp_network: string | null
+          blockchain_status: Database["public"]["Enums"]["blockchain_status"] | null
+          verification_date: string | null
+          confidence_score: number | null
+          face_match_quality: number | null
+          identity_photos_count: number | null
+          last_hash_update: string | null
+          backup_status: Database["public"]["Enums"]["backup_status"] | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          identity_hash?: string | null
+          camp_tx_hash?: string | null
+          camp_network?: string | null
+          blockchain_status?: Database["public"]["Enums"]["blockchain_status"] | null
+          verification_date?: string | null
+          confidence_score?: number | null
+          face_match_quality?: number | null
+          identity_photos_count?: number | null
+          last_hash_update?: string | null
+          backup_status?: Database["public"]["Enums"]["backup_status"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          identity_hash?: string | null
+          camp_tx_hash?: string | null
+          camp_network?: string | null
+          blockchain_status?: Database["public"]["Enums"]["blockchain_status"] | null
+          verification_date?: string | null
+          confidence_score?: number | null
+          face_match_quality?: number | null
+          identity_photos_count?: number | null
+          last_hash_update?: string | null
+          backup_status?: Database["public"]["Enums"]["backup_status"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_social_handles: {
+        Row: {
+          id: string
+          user_id: string | null
+          platform: Database["public"]["Enums"]["social_platform"] | null
+          handle: string | null
+          display_name: string | null
+          verified: boolean | null
+          follower_count: number | null
+          last_monitored: string | null
+          monitoring_enabled: boolean | null
+          risk_level: Database["public"]["Enums"]["risk_level"] | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          platform?: Database["public"]["Enums"]["social_platform"] | null
+          handle?: string | null
+          display_name?: string | null
+          verified?: boolean | null
+          follower_count?: number | null
+          last_monitored?: string | null
+          monitoring_enabled?: boolean | null
+          risk_level?: Database["public"]["Enums"]["risk_level"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          platform?: Database["public"]["Enums"]["social_platform"] | null
+          handle?: string | null
+          display_name?: string | null
+          verified?: boolean | null
+          follower_count?: number | null
+          last_monitored?: string | null
+          monitoring_enabled?: boolean | null
+          risk_level?: Database["public"]["Enums"]["risk_level"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_stats: {
+        Row: {
+          id: string
+          user_id: string | null
+          total_alerts: number | null
+          new_alerts: number | null
+          actioned: number | null
+          protection_score: number | null
+          active_monitors: number | null
+          monthly_removals: number | null
+          last_scan: string | null
+          threat_accuracy: number | null
+          response_time: number | null
+          platforms_monitored: number | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          total_alerts?: number | null
+          new_alerts?: number | null
+          actioned?: number | null
+          protection_score?: number | null
+          active_monitors?: number | null
+          monthly_removals?: number | null
+          last_scan?: string | null
+          threat_accuracy?: number | null
+          response_time?: number | null
+          platforms_monitored?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          total_alerts?: number | null
+          new_alerts?: number | null
+          actioned?: number | null
+          protection_score?: number | null
+          active_monitors?: number | null
+          monthly_removals?: number | null
+          last_scan?: string | null
+          threat_accuracy?: number | null
+          response_time?: number | null
+          platforms_monitored?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_security_settings: {
+        Row: {
+          id: string
+          user_id: string | null
+          two_factor_enabled: boolean | null
+          email_notifications: boolean | null
+          push_notifications: boolean | null
+          sms_alerts: boolean | null
+          auto_rebuke: boolean | null
+          confidence_threshold: number | null
+          legal_notifications: boolean | null
+          weekly_reports: boolean | null
+          data_retention: Database["public"]["Enums"]["data_retention"] | null
+          privacy_mode: Database["public"]["Enums"]["privacy_mode"] | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          two_factor_enabled?: boolean | null
+          email_notifications?: boolean | null
+          push_notifications?: boolean | null
+          sms_alerts?: boolean | null
+          auto_rebuke?: boolean | null
+          confidence_threshold?: number | null
+          legal_notifications?: boolean | null
+          weekly_reports?: boolean | null
+          data_retention?: Database["public"]["Enums"]["data_retention"] | null
+          privacy_mode?: Database["public"]["Enums"]["privacy_mode"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          two_factor_enabled?: boolean | null
+          email_notifications?: boolean | null
+          push_notifications?: boolean | null
+          sms_alerts?: boolean | null
+          auto_rebuke?: boolean | null
+          confidence_threshold?: number | null
+          legal_notifications?: boolean | null
+          weekly_reports?: boolean | null
+          data_retention?: Database["public"]["Enums"]["data_retention"] | null
+          privacy_mode?: Database["public"]["Enums"]["privacy_mode"] | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_notification_settings: {
+        Row: {
+          id: string
+          user_id: string | null
+          email_new_threats: boolean | null
+          email_legal_updates: boolean | null
+          email_weekly_reports: boolean | null
+          email_security_alerts: boolean | null
+          email_system_updates: boolean | null
+          push_critical_threats: boolean | null
+          push_high_risk_content: boolean | null
+          push_compliance_updates: boolean | null
+          push_new_features: boolean | null
+          sms_emergency_alerts: boolean | null
+          sms_legal_actions: boolean | null
+          sms_security_breach: boolean | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          email_new_threats?: boolean | null
+          email_legal_updates?: boolean | null
+          email_weekly_reports?: boolean | null
+          email_security_alerts?: boolean | null
+          email_system_updates?: boolean | null
+          push_critical_threats?: boolean | null
+          push_high_risk_content?: boolean | null
+          push_compliance_updates?: boolean | null
+          push_new_features?: boolean | null
+          sms_emergency_alerts?: boolean | null
+          sms_legal_actions?: boolean | null
+          sms_security_breach?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          email_new_threats?: boolean | null
+          email_legal_updates?: boolean | null
+          email_weekly_reports?: boolean | null
+          email_security_alerts?: boolean | null
+          email_system_updates?: boolean | null
+          push_critical_threats?: boolean | null
+          push_high_risk_content?: boolean | null
+          push_compliance_updates?: boolean | null
+          push_new_features?: boolean | null
+          sms_emergency_alerts?: boolean | null
+          sms_legal_actions?: boolean | null
+          sms_security_breach?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -297,6 +618,13 @@ export type Database = {
       app_role: "admin" | "user"
       platform_type: "tiktok" | "twitter" | "youtube"
       source_type: "whitelist" | "blocklist"
+      subscription_tier: "free" | "pro" | "enterprise"
+      blockchain_status: "verified" | "pending" | "failed"
+      backup_status: "secured" | "pending" | "failed"
+      social_platform: "tiktok" | "youtube" | "twitter" | "instagram" | "linkedin" | "facebook"
+      risk_level: "low" | "medium" | "high" | "unknown"
+      data_retention: "1_year" | "2_years" | "5_years" | "indefinite"
+      privacy_mode: "standard" | "enhanced" | "maximum"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -437,6 +765,13 @@ export const Constants = {
       app_role: ["admin", "user"],
       platform_type: ["tiktok", "twitter", "youtube"],
       source_type: ["whitelist", "blocklist"],
+      subscription_tier: ["free", "pro", "enterprise"],
+      blockchain_status: ["verified", "pending", "failed"],
+      backup_status: ["secured", "pending", "failed"],
+      social_platform: ["tiktok", "youtube", "twitter", "instagram", "linkedin", "facebook"],
+      risk_level: ["low", "medium", "high", "unknown"],
+      data_retention: ["1_year", "2_years", "5_years", "indefinite"],
+      privacy_mode: ["standard", "enhanced", "maximum"],
     },
   },
 } as const
