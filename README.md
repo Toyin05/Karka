@@ -5,8 +5,11 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.3+-blue)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-5.0+-purple)](https://vitejs.dev)
 [![Supabase](https://img.shields.io/badge/Supabase-Ready-green)](https://supabase.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black)](https://karka.vercel.app/)
 
 **KARKA** is an AI-powered digital identity protection platform that actively monitors your digital likeness across the internet, automatically detecting deepfakes, impersonation, and unauthorized content reposts with blockchain-verified identity protection.
+
+🚀 **[Try the Live Demo](https://karka.vercel.app/)**
 
 ## Overview
 
@@ -123,7 +126,7 @@ KARKA provides creators, public figures, and individuals with comprehensive prot
    ```
 
 5. **Access the application**
-   Navigate to `http://localhost:5173`
+   Navigate to `http://localhost:5173` or visit the [live demo](https://karka.vercel.app/)
 
 ### Production Deployment
 
@@ -232,21 +235,6 @@ npm run test:integration
 npm run test:e2e
 ```
 
-## Performance
-
-- **Page Load Time**: < 2 seconds
-- **Time to Interactive**: < 3 seconds
-- **Lighthouse Score**: 95+
-- **Bundle Size**: Optimized for fast loading
-
-## Deployment
-
-### Supported Platforms
-- **Vercel** (Recommended)
-- **Netlify**
-- **AWS Amplify**
-- **Traditional Web Hosting**
-
 ### Docker Support
 ```bash
 docker build -t karka .
@@ -254,8 +242,6 @@ docker run -p 3000:3000 karka
 ```
 
 ## Contributing
-
-We welcome contributions to improve KARKA's digital identity protection capabilities.
 
 ### Contribution Guidelines
 1. Fork the repository
@@ -285,7 +271,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### December 2025 - Q1 2026 (Current Phase)
 - Enhanced ML model accuracy and training data expansion
-- Additional platform integrations (Reddit, Facebook)
 - Mobile application development (iOS and Android)
 - API for third-party integrations and webhooks
 - Enterprise dashboard and analytics features
