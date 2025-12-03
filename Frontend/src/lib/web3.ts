@@ -32,7 +32,7 @@ const CONTRACT_ABI = [
 // Declare window.ethereum type
 declare global {
   interface Window {
-    ethereum?: ethers.Eip1193Provider;
+    ethereum?: any;
   }
 }
 

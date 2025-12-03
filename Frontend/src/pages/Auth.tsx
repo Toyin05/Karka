@@ -6,10 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Eye, EyeOff, Lock, Globe, CheckCircle2, ArrowRight, Star, Users, Zap, ArrowLeft, AlertTriangle, CheckCircle } from "lucide-react";
+import { Shield, Eye, EyeOff, Lock, Globe, CheckCircle2, ArrowRight, Star, Users, Zap, ArrowLeft, AlertTriangle, CheckCircle, Wallet } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
+import { connectWallet } from "@/lib/web3";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -36,6 +37,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -99,6 +101,20 @@ const Auth = () => {
     checkAuth();
   }, [navigate]);
 
+  const handleConnectWallet = async () => {
+    try {
+      setLoading(true);
+      const address = await connectWallet();
+      setWalletAddress(address);
+      toast.success(`Wallet connected: ${address.slice(0, 6)}...${address.slice(-4)}`);
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+      toast.error('Failed to connect wallet. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -130,6 +146,7 @@ const Auth = () => {
           options: {
             data: {
               full_name: formData.fullName,
+              wallet_address: walletAddress,
             },
             emailRedirectTo: `${window.location.origin}/onboarding`,
           },
@@ -559,7 +576,37 @@ const Auth = () => {
                       )}
                     </div>
                   )}
-                  
+
+                  {/* Connect Wallet */}
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                      {walletAddress ? "Wallet Connected" : "Connect Wallet (Optional)"}
+                    </Label>
+                    {walletAddress ? (
+                      <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-md">
+                        <Wallet className="h-4 w-4 text-green-600" />
+                        <span className="text-sm text-green-700 font-mono">
+                          {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                        </span>
+                        <CheckCircle className="h-4 w-4 text-green-600 ml-auto" />
+                      </div>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleConnectWallet}
+                        disabled={loading}
+                        className="w-full h-12 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                      >
+                        <Wallet className="h-4 w-4 mr-2" />
+                        Connect MetaMask Wallet
+                      </Button>
+                    )}
+                    <p className="text-xs text-slate-500">
+                      Connect your wallet to enable blockchain-based identity verification
+                    </p>
+                  </div>
+
                   {/* Forgot Password Link (Login Mode) */}
                   {mode === "login" && (
                     <div className="flex justify-end">

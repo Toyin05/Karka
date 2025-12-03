@@ -9,10 +9,10 @@ interface OriginContextType {
   connect: () => Promise<void>;
   disconnect: () => void;
   linkTwitter: () => void;
-  linkTiktok: (handle: string) => Promise<void>;
+  linkTikTok: (handle: string) => Promise<void>;
   linkSpotify: () => void;
   unlinkTwitter: () => Promise<void>;
-  unlinkTiktok: () => Promise<void>;
+  unlinkTikTok: () => Promise<void>;
   unlinkSpotify: () => Promise<void>;
   linkedSocials: {
     twitter: boolean;
@@ -83,7 +83,11 @@ export const OriginProvider: React.FC<OriginProviderProps> = ({
       const updateLinkedSocials = async () => {
         try {
           const socials = await auth.getLinkedSocials();
-          setLinkedSocials(socials);
+          setLinkedSocials({
+            twitter: socials.twitter ?? false,
+            tiktok: socials.tiktok ?? false,
+            spotify: socials.spotify ?? false,
+          });
         } catch (error) {
           console.error('Failed to get linked socials:', error);
         }
@@ -107,9 +111,9 @@ export const OriginProvider: React.FC<OriginProviderProps> = ({
     auth.linkTwitter();
   };
 
-  const linkTiktok = async (handle: string) => {
+  const linkTikTok = async (handle: string) => {
     if (!auth) throw new Error('Auth not initialized');
-    await auth.linkTiktok(handle);
+    await auth.linkTikTok(handle);
   };
 
   const linkSpotify = () => {
@@ -122,9 +126,9 @@ export const OriginProvider: React.FC<OriginProviderProps> = ({
     await auth.unlinkTwitter();
   };
 
-  const unlinkTiktok = async () => {
+  const unlinkTikTok = async () => {
     if (!auth) throw new Error('Auth not initialized');
-    await auth.unlinkTiktok();
+    await auth.unlinkTikTok();
   };
 
   const unlinkSpotify = async () => {
@@ -139,10 +143,10 @@ export const OriginProvider: React.FC<OriginProviderProps> = ({
     connect,
     disconnect,
     linkTwitter,
-    linkTiktok,
+    linkTikTok,
     linkSpotify,
     unlinkTwitter,
-    unlinkTiktok,
+    unlinkTikTok,
     unlinkSpotify,
     linkedSocials
   };
