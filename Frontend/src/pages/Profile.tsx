@@ -12,18 +12,20 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  User, Shield, Camera, Upload, Edit, CheckCircle, ExternalLink, 
+import {
+  User, Shield, Camera, Upload, Edit, CheckCircle, ExternalLink,
   Settings, Bell, Lock, Globe, Eye, EyeOff, Copy, RefreshCw,
   Zap, Target, Users, BarChart3, Camera as CameraIcon, Image as ImageIcon,
   Plus, Trash2, AlertTriangle, Info, Star, Award, TrendingUp,
-  Clock, Check, X, GitBranch, Database, Lock as LockIcon, 
-  Copy as CopyIcon, Plus as PlusIcon, Download, UserPlus, Phone, MapPin, Calendar, Globe as GlobeIcon
+  Clock, Check, X, GitBranch, Database, Lock as LockIcon,
+  Copy as CopyIcon, Plus as PlusIcon, Download, UserPlus, Phone, MapPin, Calendar, Globe as GlobeIcon,
+  Wallet
 } from "lucide-react";
 import { toast } from "sonner";
 import { useUserProfile, UserProfile } from "@/hooks/useUserProfile";
 import { ProfileOnboarding } from "@/components/ProfileOnboarding";
 import { supabase } from "@/integrations/supabase/client";
+import { connectWallet, registerIdentity, verifyIdentity, hashIdentity } from "@/lib/web3";
 
 // Mock data for development - will be replaced with real data from useUserProfile hook
 const mockSecuritySettings = {
@@ -102,6 +104,9 @@ const Profile = () => {
   });
   const [identityVerificationScore, setIdentityVerificationScore] = useState(0);
   const [securityRating, setSecurityRating] = useState('');
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [isRegisteringIdentity, setIsRegisteringIdentity] = useState(false);
 
   // Update editing data when profile changes
   useEffect(() => {
@@ -376,23 +381,67 @@ const Profile = () => {
         ...prev,
         [handleId]: enabled
       }));
-      
+
       // This would typically be an API call to your backend
       // For now, we'll just show the toast
       // You would typically make an API call here:
       // await updateSocialHandleMonitoring(handleId, enabled);
-      
+
       toast.success(`Monitoring ${enabled ? 'enabled' : 'disabled'} for this handle`);
-      
+
     } catch (error) {
       console.error('Failed to update monitoring status:', error);
       toast.error('Failed to update monitoring status');
-      
+
       // Revert the state on error
       setMonitoringStatus(prev => ({
         ...prev,
         [handleId]: !enabled
       }));
+    }
+  };
+
+  // Wallet and blockchain functions
+  const handleConnectWallet = async () => {
+    try {
+      const address = await connectWallet();
+      setWalletAddress(address);
+      setIsWalletConnected(true);
+      toast.success('Wallet connected successfully');
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+      toast.error('Failed to connect wallet. Please install MetaMask.');
+    }
+  };
+
+  const handleRegisterIdentity = async () => {
+    if (!profile) return;
+
+    setIsRegisteringIdentity(true);
+    try {
+      // Create identity data string (simplified - in real app, this would be more comprehensive)
+      const identityData = JSON.stringify({
+        userId: profile.id,
+        email: profile.email,
+        fullName: profile.full_name,
+        displayName: profile.display_name,
+        joinedDate: profile.joined_date,
+        timestamp: Date.now()
+      });
+
+      const identityHash = hashIdentity(identityData);
+
+      const tx = await registerIdentity(identityHash);
+      toast.success('Identity registered on blockchain successfully!');
+
+      // Update profile with blockchain info (this would typically be done via API)
+      console.log('Transaction hash:', tx.hash);
+
+    } catch (error) {
+      console.error('Failed to register identity:', error);
+      toast.error('Failed to register identity on blockchain');
+    } finally {
+      setIsRegisteringIdentity(false);
     }
   };
 
@@ -751,6 +800,55 @@ const Profile = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  {/* Wallet Connection Status */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Wallet Status</p>
+                      {isWalletConnected ? (
+                        <Badge className="bg-green-100 text-green-800 border-green-200">
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          Connected
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
+                          <Wallet className="h-3 w-3 mr-1" />
+                          Not Connected
+                        </Badge>
+                      )}
+                    </div>
+                    {!isWalletConnected && (
+                      <Button
+                        onClick={handleConnectWallet}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        size="sm"
+                      >
+                        <Wallet className="h-4 w-4 mr-2" />
+                        Connect Wallet
+                      </Button>
+                    )}
+                  </div>
+
+                  {isWalletConnected && (
+                    <div>
+                      <p className="text-sm text-muted-foreground">Connected Address</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <code className="bg-muted px-3 py-2 rounded text-sm font-mono flex-1 break-all text-xs">
+                          {walletAddress}
+                        </code>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            navigator.clipboard.writeText(walletAddress || '');
+                            toast.success('Address copied to clipboard');
+                          }}
+                        >
+                          <CopyIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   {identity ? (
                     <>
                       <div className="flex items-center justify-between">
@@ -812,10 +910,36 @@ const Profile = () => {
                       <p className="text-muted-foreground mb-4">
                         Set up your blockchain identity to secure your digital presence
                       </p>
-                      <Button className="bg-secondary text-white shadow-md hover:shadow-lg transition-all duration-200">
-                        <UserPlus className="h-4 w-4 mr-2" />
-                        Set Up Identity
-                      </Button>
+                      {isWalletConnected ? (
+                        <Button
+                          onClick={handleRegisterIdentity}
+                          disabled={isRegisteringIdentity}
+                          className="bg-secondary text-white shadow-md hover:shadow-lg transition-all duration-200"
+                        >
+                          {isRegisteringIdentity ? (
+                            <>
+                              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                              Registering...
+                            </>
+                          ) : (
+                            <>
+                              <UserPlus className="h-4 w-4 mr-2" />
+                              Register Identity on Blockchain
+                            </>
+                          )}
+                        </Button>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-sm text-muted-foreground">Connect your wallet first</p>
+                          <Button
+                            onClick={handleConnectWallet}
+                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                          >
+                            <Wallet className="h-4 w-4 mr-2" />
+                            Connect Wallet to Continue
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   )}
 

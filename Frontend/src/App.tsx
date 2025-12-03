@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { OriginProvider } from "@/lib/origin";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
@@ -19,25 +20,35 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/alerts" element={<Alerts />} />
-          <Route path="/dashboard/alerts/:id" element={<AlertDetail />} />
-          <Route path="/dashboard/sources" element={<Sources />} />
-          <Route path="/dashboard/history" element={<History />} />
-          <Route path="/dashboard/profile" element={<Profile />} />
-          <Route path="/dashboard/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <OriginProvider
+      clientId={import.meta.env.VITE_ORIGIN_CLIENT_ID || "karka-demo-client"}
+      environment="DEVELOPMENT"
+      redirectUri={{
+        twitter: `${window.location.origin}/dashboard/profile`,
+        spotify: `${window.location.origin}/dashboard/profile`,
+        tiktok: `${window.location.origin}/dashboard/profile`
+      }}
+    >
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/alerts" element={<Alerts />} />
+            <Route path="/dashboard/alerts/:id" element={<AlertDetail />} />
+            <Route path="/dashboard/sources" element={<Sources />} />
+            <Route path="/dashboard/history" element={<History />} />
+            <Route path="/dashboard/profile" element={<Profile />} />
+            <Route path="/dashboard/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </OriginProvider>
   </QueryClientProvider>
 );
 
